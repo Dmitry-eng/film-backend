@@ -3,6 +3,7 @@ package org.film.entity;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Data;
@@ -25,7 +26,8 @@ public class FilmEntity extends AbstractEntity {
 
     private LocalDate releaseDate;
 
-    @OneToMany(mappedBy = "filmEntity", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "film_entity_id")
     private List<ImageFilmEntity> images;
 
     private Double rating;
