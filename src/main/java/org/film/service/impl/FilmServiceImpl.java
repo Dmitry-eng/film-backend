@@ -83,6 +83,7 @@ public class FilmServiceImpl implements FilmService {
     }
 
     @Override
+    @Transactional
     public FullFilmInfo updateFilm(UpdateFilm film) {
         FilmEntity entity = filmRepository.findById(film.getId())
                 .orElseThrow(() -> new ServiceException(FILM_NOT_FOUND));

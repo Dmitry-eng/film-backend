@@ -9,7 +9,7 @@ public class CommentInfo {
 
     private Long id;
 
-    private CommentInfo previewComment;
+    private Long previewCommentId;
 
     private ShortAccountInfo author;
 

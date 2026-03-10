@@ -41,6 +41,7 @@ public abstract class FilmMapper {
     public abstract ImageFilmEntity map(CreateImage image);
 
     @Mapping(target = "value", source = "entity", qualifiedByName = "getCommentValue")
+    @Mapping(target = "previewCommentId", source = "entity.previewComment.id")
     protected abstract CommentInfo map(CommentEntity entity);
 
     @Named("getCommentValue")
