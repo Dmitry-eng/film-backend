@@ -26,8 +26,9 @@ public class SpecificationHelper {
             List<Predicate> predicates = new ArrayList<>();
 
             if (!Boolean.TRUE.equals(ignoreRemove)) {
-                predicates.add(cb.isFalse(root.get("isDeleted")));
-                predicates.add(cb.isNull(root.get("isDeleted")));
+                Predicate isFalsePredicate = cb.isFalse(root.get("isDeleted"));
+                Predicate isNullPredicate = cb.isNull(root.get("isDeleted"));
+                predicates.add(cb.or(isFalsePredicate, isNullPredicate));
             }
 
             if (criteriaList != null && !criteriaList.isEmpty()) {
