@@ -22,6 +22,7 @@ public class RatingScheduler {
     private final FilmRepository filmRepository;
 
     @Scheduled(fixedRate = 1000)
+//     TODO продумать более оптимизированный вариант
     public void updateFilmRatings() {
 
         Map<FilmEntity, List<RatingEntity>> ratingsByFilm = ratingRepository.findAll()
