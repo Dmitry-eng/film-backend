@@ -1,4 +1,4 @@
-package org.film.execption;
+package org.film.exception;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

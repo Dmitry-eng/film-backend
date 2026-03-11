@@ -6,7 +6,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 @Data
-public class AddRating {
+public class VoteRating {
 
     @NotNull
     private Long filmId;

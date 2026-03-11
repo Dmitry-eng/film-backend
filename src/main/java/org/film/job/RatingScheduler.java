@@ -1,17 +1,17 @@
 package org.film.job;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.film.entity.FilmEntity;
 import org.film.entity.RatingEntity;
 import org.film.repository.FilmRepository;
+import org.film.repository.GradeRepository;
 import org.film.repository.RatingRepository;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 @Slf4j
 @Component
@@ -19,34 +19,52 @@ import java.util.stream.Collectors;
 public class RatingScheduler {
 
     private final RatingRepository ratingRepository;
-    private final FilmRepository filmRepository;
 
     @Scheduled(fixedRate = 1000)
-//     TODO продумать более оптимизированный вариант
+    @Transactional
     public void updateFilmRatings() {
 
-        Map<FilmEntity, List<RatingEntity>> ratingsByFilm = ratingRepository.findAll()
-                .stream()
-                .collect(Collectors.groupingBy(RatingEntity::getFilm));
+        List<RatingEntity> entities = ratingRepository.getEntityByIsRequiredCalculate(true);
 
-        for (Map.Entry<FilmEntity, List<RatingEntity>> entry : ratingsByFilm.entrySet()) {
-            FilmEntity film = entry.getKey();
-            List<RatingEntity> ratings = entry.getValue();
-
-            double averageRating = ratings.stream()
-                    .mapToInt(RatingEntity::getGrade)
-                    .average()
-                    .orElse(0.0);
-
-            double roundedRating = Math.round(averageRating * 10) / 10.0;
-
-            film.setRating(roundedRating);
-
-            log.debug("Фильм '{}' - рейтинг: {}, голосов: {}",
-                    film.getName(), roundedRating, ratings.size());
+        for (RatingEntity rating : entities) {
+            try {
+                recalculateRating(rating);
+            } catch (Exception e) {
+                log.error("Error calculate rating: {}",
+                        rating.getFilm().getId(), e);
+            }
         }
 
-        filmRepository.saveAll(ratingsByFilm.keySet());
+        ratingRepository.saveAll(entities);
+    }
+
+    private void recalculateRating(RatingEntity rating) {
+        Map<Integer, Long> distribution = rating.getGradeDistribution();
+
+        long totalVotes = distribution.values().stream()
+                .mapToLong(Long::longValue)
+                .sum();
+
+        if (totalVotes == 0) {
+            rating.setAverageRating(0.0);
+        } else {
+            long sum = distribution.entrySet().stream()
+                    .mapToLong(entry -> entry.getKey() * entry.getValue())
+                    .sum();
+
+            double average = (double) sum / totalVotes;
+            double roundedAverage = Math.round(average * 10) / 10.0;
+
+            rating.setAverageRating(roundedAverage);
+
+            log.debug("Film '{}' - rating: {} (votes: {}, sum: {})",
+                    rating.getFilm().getName(),
+                    roundedAverage,
+                    totalVotes,
+                    sum);
+        }
+
+        rating.setIsRequiredCalculate(false);
     }
 
 }

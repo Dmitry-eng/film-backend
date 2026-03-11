@@ -33,8 +33,10 @@ public abstract class FilmMapper {
     public abstract FilmEntity createFilm(CreateFilm film);
 
     @Mapping(target = "image", source = "entity", qualifiedByName = "getPrimaryImage")
+    @Mapping(target = "rating", source = "entity.rating.averageRating")
     public abstract ShortFilmInfo toShortFilmInfo(FilmEntity entity);
 
+    @Mapping(target = "rating", source = "entity.rating.averageRating")
     public abstract FullFilmInfo mapFullFilmInfo(FilmEntity entity);
 
     @Mapping(target = "fileUri", source = "image")

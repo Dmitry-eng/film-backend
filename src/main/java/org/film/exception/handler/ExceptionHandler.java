@@ -1,8 +1,8 @@
-package org.film.execption.handler;
+package org.film.exception.handler;
 
 import org.apache.commons.lang3.StringUtils;
-import org.film.execption.ErrorResponse;
-import org.film.execption.ServiceException;
+import org.film.exception.ErrorResponse;
+import org.film.exception.ServiceException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;

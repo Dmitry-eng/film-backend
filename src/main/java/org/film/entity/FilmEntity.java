@@ -1,11 +1,7 @@
 package org.film.entity;
 
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -30,7 +26,9 @@ public class FilmEntity extends AbstractEntity {
     @JoinColumn(name = "film_entity_id")
     private List<ImageFilmEntity> images;
 
-    private Double rating;
+    @OneToOne
+    @JoinColumn(name = "rating_id")
+    private RatingEntity rating;
 
     @OneToMany(mappedBy = "film", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CommentEntity> comments;

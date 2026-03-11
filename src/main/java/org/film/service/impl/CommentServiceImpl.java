@@ -6,7 +6,7 @@ import org.film.entity.AbstractEntity;
 import org.film.entity.AccountEntity;
 import org.film.entity.CommentEntity;
 import org.film.entity.FilmEntity;
-import org.film.execption.ServiceException;
+import org.film.exception.ServiceException;
 import org.film.mapper.CommentMapper;
 import org.film.repository.CommentRepository;
 import org.film.repository.FilmRepository;
@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
-import static org.film.execption.ServiceExceptionType.*;
+import static org.film.exception.ServiceExceptionType.*;
 
 @Service
 @RequiredArgsConstructor

@@ -2,20 +2,27 @@ package org.film.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
-@Data
+import java.util.HashMap;
+import java.util.Map;
+
 @Entity
 @Table
+@Data
 public class RatingEntity extends AbstractEntity {
 
-    @ManyToOne
-    @JoinColumn(name = "film_id", nullable = false)
+    @OneToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "film_id")
     private FilmEntity film;
 
-    @Column(name = "grade", nullable = false)
-    private Integer grade;
+    @Column(columnDefinition = "jsonb")
+    @JdbcTypeCode(SqlTypes.JSON)
+    private Map<Integer, Long> gradeDistribution = new HashMap<>();
 
-    @ManyToOne
-    private AccountEntity accountEntity;
+    private Double averageRating;
+
+    private Boolean isRequiredCalculate = false;
 
 }

@@ -8,13 +8,11 @@ import org.film.dto.request.filter.FilterContext;
 import org.film.dto.response.FullFilmInfo;
 import org.film.dto.response.ShortFilmInfo;
 import org.film.entity.FilmEntity;
-import org.film.execption.ServiceException;
+import org.film.exception.ServiceException;
 import org.film.mapper.FilmMapper;
 import org.film.repository.FilmRepository;
 import org.film.service.FilmService;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Slice;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
@@ -23,7 +21,7 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import static org.film.execption.ServiceExceptionType.FILM_NOT_FOUND;
+import static org.film.exception.ServiceExceptionType.FILM_NOT_FOUND;
 import static org.film.util.PageableHelper.createPageable;
 import static org.film.util.SpecificationHelper.createSpecification;
 
