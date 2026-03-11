@@ -1,6 +1,7 @@
 package org.film.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.film.dto.request.VoteRating;
 import org.film.service.RatingService;
@@ -18,7 +19,7 @@ public class RatingController {
 
     @Operation(summary = "Голосование")
     @PostMapping("/vote")
-    public void voteRating(@RequestBody VoteRating voteRating) {
+    public void voteRating(@Valid @RequestBody VoteRating voteRating) {
         ratingService.voteRating(voteRating);
     }
 
