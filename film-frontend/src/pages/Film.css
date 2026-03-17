@@ -1,0 +1,244 @@
+.film-page {
+  padding-bottom: 48px;
+}
+
+.film-page__skeleton {
+  height: 400px;
+  background: var(--bg-card);
+  border-radius: var(--radius);
+}
+
+.film-page__error {
+  color: var(--text-secondary);
+  margin-bottom: 16px;
+}
+
+.film-page__hero {
+  position: relative;
+  min-height: 420px;
+  margin-bottom: 32px;
+  overflow: hidden;
+}
+
+.film-page__hero-bg {
+  position: absolute;
+  inset: 0;
+  background: var(--bg-secondary);
+}
+
+.film-page__hero-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, var(--bg-primary) 0%, transparent 50%, var(--bg-primary) 100%);
+}
+
+.film-page__hero-bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.4;
+}
+
+.film-page__hero-content {
+  position: relative;
+  padding: 32px 0 48px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-height: 420px;
+}
+
+.film-page__back {
+  position: absolute;
+  top: 32px;
+  left: 24px;
+  right: 24px;
+  max-width: 1280px;
+  margin: 0 auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-secondary);
+  font-size: 0.9375rem;
+}
+
+.film-page__back:hover {
+  color: var(--accent);
+}
+
+.film-page__hero-info {
+  max-width: 640px;
+}
+
+.film-page__title {
+  font-family: var(--font-display);
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  font-weight: 700;
+  margin: 0 0 12px;
+}
+
+.film-page__meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  color: var(--text-secondary);
+  font-size: 1rem;
+  margin: 0 0 16px;
+}
+
+.film-page__dot {
+  color: var(--text-muted);
+}
+
+.film-page__rating {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--gold);
+}
+
+.film-page__badge {
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.film-page__badge--new {
+  background: var(--accent-subtle);
+  color: var(--accent);
+}
+
+.film-page__desc {
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin: 0 0 24px;
+}
+
+.film-page__watch {
+  display: flex;
+  gap: 12px;
+}
+
+.film-page__body {
+  max-width: 800px;
+}
+
+.film-page__section {
+  margin-bottom: 40px;
+}
+
+.film-page__section-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin: 0 0 16px;
+}
+
+.film-page__rating-widget {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.film-page__star-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+  color: var(--text-secondary);
+  font-weight: 600;
+  font-size: 0.9375rem;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+
+.film-page__star-btn:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+  background: var(--gold-subtle);
+}
+
+.film-page__star-btn--active {
+  border-color: var(--gold);
+  color: var(--gold);
+  background: var(--gold-subtle);
+}
+
+.film-page__rating-avg {
+  color: var(--text-secondary);
+  font-size: 0.9375rem;
+  margin: 0;
+}
+
+.film-page__comment-form {
+  margin-bottom: 24px;
+}
+
+.film-page__comment-input {
+  width: 100%;
+  padding: 14px;
+  margin-bottom: 12px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--text-primary);
+  font-size: 1rem;
+  resize: vertical;
+  min-height: 80px;
+}
+
+.film-page__comment-input:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.film-page__comment-input::placeholder {
+  color: var(--text-muted);
+}
+
+.film-page__comments {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.film-page__comment {
+  padding: 16px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  margin-bottom: 12px;
+}
+
+.film-page__comment-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.film-page__comment-author {
+  font-weight: 600;
+  font-size: 0.9375rem;
+}
+
+.film-page__comment-date {
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+}
+
+.film-page__comment-text {
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: 0.9375rem;
+  line-height: 1.5;
+}
+
+.film-page__no-comments {
+  color: var(--text-muted);
+  font-size: 0.9375rem;
+  margin: 0;
+}
