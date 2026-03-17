@@ -39,3 +39,8 @@ build/
 
 ### Mac OS ###
 .DS_Store
+
+/film-module/target
+/application-module/target
+/authenticate-module/target
+/entity-module/target

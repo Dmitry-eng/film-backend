@@ -13,6 +13,7 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     restart: unless-stopped
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres"]
@@ -24,7 +25,7 @@ services:
     image: dpage/pgadmin4:latest
     container_name: kino-pgadmin
     environment:
-      PGADMIN_DEFAULT_EMAIL: 123
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
       PGADMIN_DEFAULT_PASSWORD: admin
       PGADMIN_CONFIG_SERVER_MODE: 'False'
     ports:
@@ -35,8 +36,53 @@ services:
     volumes:
       - pgadmin_data:/var/lib/pgadmin
 
+  redis:
+    image: redis:7-alpine
+    container_name: kino-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    restart: unless-stopped
+    command: redis-server --appendonly yes
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+  redis-commander:
+    image: rediscommander/redis-commander:latest
+    container_name: kino-redis-commander
+    environment:
+      REDIS_HOSTS: local:redis:6379
+      PORT: 8082
+    ports:
+      - "8082:8082"
+    depends_on:
+      - redis
+    restart: unless-stopped
+  app:
+    build: .
+    container_name: kino-app
+    ports:
+      - "8081:8081"
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    restart: unless-stopped
+
 volumes:
   postgres_data:
     name: kino_postgres_data
   pgadmin_data:
     name: kino_pgadmin_data
+  redis_data:
+    name: kino_redis_data
+
+
+
+
