@@ -41,3 +41,8 @@ jwt:
   secret:
     access: haZJ5NoZNdtD95Hp+7C7w2QsExdZJbLInGjQrqulLiw=
     refresh: Ygsft/Q7vbIi6FAHxlOIO14PvczWzC7UD9wFxoGIhUU=
+
+minio:
+  url: http://localhost:9000
+  username: admin
+  password: password

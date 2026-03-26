@@ -24,23 +24,25 @@ public abstract class FilmMapper {
 
     private static final String COMMENT_DELETED = "Комментарий удален.";
 
+    @Mapping(target = "images", ignore = true)
     public abstract void updateFilm(@MappingTarget FilmEntity entity, UpdateFilm updateFilm);
 
-    @Mapping(target = "fileUri", source = "image")
     @Mapping(target = "id", source = "id")
     public abstract ImageFilmEntity map(UpdateImage image);
 
+    @Mapping(target = "images", ignore = true)
     public abstract FilmEntity createFilm(CreateFilm film);
 
-    @Mapping(target = "image", source = "entity", qualifiedByName = "getPrimaryImage")
+    @Mapping(target = "image", ignore = true)
     @Mapping(target = "rating", source = "entity.rating.averageRating")
     public abstract ShortFilmInfo toShortFilmInfo(FilmEntity entity);
 
     @Mapping(target = "rating", source = "entity.rating.averageRating")
+    @Mapping(target = "images", ignore = true)
     public abstract FullFilmInfo mapFullFilmInfo(FilmEntity entity);
 
-    @Mapping(target = "fileUri", source = "image")
-    public abstract ImageFilmEntity map(CreateImage image);
+
+    public abstract ImageFilmEntity createImageEntity(CreateImage image);
 
     @Mapping(target = "value", source = "entity", qualifiedByName = "getCommentValue")
     @Mapping(target = "previewCommentId", source = "entity.previewComment.id")
@@ -51,20 +53,12 @@ public abstract class FilmMapper {
         return Boolean.TRUE.equals(entity.getIsDeleted()) ? COMMENT_DELETED : entity.getValue();
     }
 
-    @Mapping(target = "isPrimary", source = "isPrimary", defaultValue = "false")
-    @Mapping(target = "image", source = "fileUri")
-    protected abstract Image map(ImageFilmEntity image);
+//    @Mapping(target = "isPrimary", source = "isPrimary", defaultValue = "false")
+//    @Mapping(target = "image", source = "fileUri")
+//    protected abstract Image map(ImageFilmEntity image);
 
-    @Named("getPrimaryImage")
-    protected String getPrimaryImage(FilmEntity filmEntity) {
-        return Optional.of(filmEntity)
-                .map(FilmEntity::getImages)
-                .orElse(List.of())
-                .stream()
-                .filter(imageFilmEntity -> !imageFilmEntity.getIsDeleted())
-                .filter(ImageFilmEntity::getIsPrimary)
-                .map(ImageFilmEntity::getFileUri)
-                .findAny().orElse(null);
-    }
-
+    @Mapping(target = "image", source = "image")
+    @Mapping(target = "id", source = "imageFilmEntity.id")
+    @Mapping(target = "isPrimary", source = "imageFilmEntity.isPrimary")
+    public abstract Image mapImage(String image, ImageFilmEntity imageFilmEntity);
 }

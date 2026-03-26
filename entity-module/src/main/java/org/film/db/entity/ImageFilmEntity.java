@@ -12,12 +12,8 @@ import lombok.ToString;
 @Table
 public class ImageFilmEntity extends AbstractEntity {
 
-    // TODO Временно сделал хранение в БД. Переделать
-    private String fileUri;
-
     private Boolean isPrimary;
 
     @ManyToOne
     private FilmEntity filmEntity;
-
 }
