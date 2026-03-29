@@ -1,4 +1,4 @@
-package org.film.auth.filter;
+package org.film.filter;
 
 import io.jsonwebtoken.Claims;
 import jakarta.servlet.FilterChain;
@@ -12,7 +12,7 @@ import org.film.tool.FilterUtil;
 import org.film.tool.JwtHelper;
 import org.film.util.Constant;
 import org.film.entity.AccountEntity;
-import org.film.db.repository.AccountRepository;
+import org.film.repository.AccountRepository;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;

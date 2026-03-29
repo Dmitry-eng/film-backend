@@ -14,7 +14,7 @@ import org.film.service.Cache;
 import org.film.tool.JwtHelper;
 import org.film.util.Constant;
 import org.film.entity.AccountEntity;
-import org.film.db.repository.AccountRepository;
+import org.film.repository.AccountRepository;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

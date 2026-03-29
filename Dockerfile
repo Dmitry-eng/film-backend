@@ -7,6 +7,6 @@ WORKDIR /app
 COPY . .
 
 RUN mvn clean install -DskipTests && \
-    cp application-module/target/*.jar app.jar
+    cp target/*.jar app.jar
 
 CMD ["java", "-jar", "app.jar"]

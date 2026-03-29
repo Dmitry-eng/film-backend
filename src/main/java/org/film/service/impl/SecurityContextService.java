@@ -5,7 +5,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.film.entity.AccountEntity;
 import org.film.entity.Role;
-import org.film.db.repository.AccountRepository;
+import org.film.repository.AccountRepository;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;

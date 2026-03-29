@@ -1,6 +1,6 @@
-package org.film.auth.config;
+package org.film.config;
 
-import org.film.auth.filter.CookieFilter;
+import org.film.filter.CookieFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -40,10 +40,12 @@ public class SecurityConfig {
                                 ).permitAll()
                                 .requestMatchers(HttpMethod.GET,
                                         "/api/film/{id}",
-                                        "/api/film")
+                                        "/api/film",
+                                        "/api/account/validate/email/{email}")
                                 .permitAll()
                                 .requestMatchers(HttpMethod.POST,
-                                        "/api/film/all")
+                                        "/api/film/all",
+                                        "/api/account/registration")
                                 .permitAll()
                                 .requestMatchers("/api/auth/login").permitAll()
                                 .anyRequest().authenticated()
